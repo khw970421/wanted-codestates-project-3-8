@@ -7,8 +7,21 @@ const Input = ({ changeSearchContent }) => {
     console.log('search Input  : ', target.value);
     changeSearchContent(target.value);
   };
+  const debounce = (callback, delay) => {
+    let timer;
+    return arg => {
+      clearTimeout(timer);
+
+      timer = setTimeout(() => {
+        return callback(arg);
+      }, delay);
+    };
+  };
   return (
-    <InputText placeholder="검색어를 입력해주세요" onChange={searchSaveTheme} />
+    <InputText
+      placeholder="검색어를 입력해주세요"
+      onChange={debounce(searchSaveTheme, 400)}
+    />
   );
 };
 
