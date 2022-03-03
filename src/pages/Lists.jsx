@@ -1,11 +1,23 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import DataList from '../components/DataList';
 import { IoIosArrowBack } from 'react-icons/io';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const Lists = () => {
   const navigate = useNavigate();
+
+  useEffect(() => {
+    getData();
+  }, []);
+
+  const getData = async () => {
+    const res = await axios.get(
+      `/getRecreationalForestInfo?serviceKey=${process.env.REACT_APP_SERVICE_KEY}`,
+    );
+    console.log(res.data.body);
+  };
 
   return (
     <Wrap>
@@ -19,6 +31,9 @@ const Lists = () => {
           address={'충청북도 보은군 속리산면 속리산로 596'}
           tel={'043-540-3220'}
         />
+        {/* {res.data.body.map(({ NM, ADRES, TELNO }, idx) => (
+          <DataList key={idx} title={NM} address={ADRES} tel={TELNO} />
+        ))} */}
       </ul>
     </Wrap>
   );
