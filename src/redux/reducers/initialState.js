@@ -1,4 +1,4 @@
 export const initialState = {
   placeItems: [],
-  notification: null,
+  notification: '',
 };

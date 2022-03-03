@@ -3,12 +3,23 @@ import styled from 'styled-components';
 import AddListBtn from '../components/AddListBtn';
 import DataList from '../components/DataList';
 import SearchBar from '../components/Search/SearchBar';
+import { useSelector, useDispatch } from 'react-redux';
+import { notify } from '../redux/action';
+import NotificationMessage from '../components/NotificationMessage';
 
 const Main = () => {
+  const dispatch = useDispatch();
+  const state = useSelector(state => state.notificationReducer.notification);
+  console.log(state);
+  // dispatch(notify('hello'));
   return (
     <Wrap>
       <SearchBar />
       <h2>저장된 목록</h2>
+      <button onClick={() => dispatch(notify('저장되었습니다', 2000))}>
+        테스트
+      </button>
+
       <ul>
         {/* map */}
         <DataList
@@ -61,6 +72,7 @@ const Main = () => {
         />
       </ul>
       <AddListBtn />
+      <NotificationMessage state={state} />
     </Wrap>
   );
 };
