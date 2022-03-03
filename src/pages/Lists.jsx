@@ -16,7 +16,7 @@ const Lists = () => {
 
   useEffect(() => {
     dispatch(getDataFromApi());
-  }, [apiData]);
+  }, []);
 
   return (
     <Wrap>
@@ -26,7 +26,6 @@ const Lists = () => {
       </Nav>
       <ul>
         {apiData.map((item, idx) => {
-          console.log(item);
           return (
             <DataList
               item={item}
