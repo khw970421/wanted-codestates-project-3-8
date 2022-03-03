@@ -2,9 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { IoIosClose } from 'react-icons/io';
+import { useDispatch } from 'react-redux';
+import { notify } from '../redux/action';
 
 const Modal = ({ title, address, tel, massage, setShowModal }) => {
   console.log(massage);
+  const dispatch = useDispatch();
   return (
     <>
       <Bg onClick={() => setShowModal(false)}></Bg>
@@ -40,11 +43,27 @@ const Modal = ({ title, address, tel, massage, setShowModal }) => {
         <Btn>
           {massage ? (
             <>
-              <DeleteBtn type="button">삭제</DeleteBtn>
+              <DeleteBtn
+                type="button"
+                onClick={() => {
+                  setShowModal(false);
+                  dispatch(notify('삭제 되었습니다.', 1500));
+                }}
+              >
+                삭제
+              </DeleteBtn>
               <button type="button">수정</button>
             </>
           ) : (
-            <button type="button">저장</button>
+            <button
+              type="button"
+              onClick={() => {
+                setShowModal(false);
+                dispatch(notify('저장 되었습니다.', 1500));
+              }}
+            >
+              저장
+            </button>
           )}
         </Btn>
       </Box>

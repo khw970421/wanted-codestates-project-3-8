@@ -9,6 +9,7 @@ const Main = () => {
     <Wrap>
       <SearchBar />
       <h2>저장된 목록</h2>
+
       <ul>
         {/* map */}
         <DataList
