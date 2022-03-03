@@ -1,11 +1,27 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import DataList from '../components/DataList';
 import { IoIosArrowBack } from 'react-icons/io';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { getDataFromApi } from '../redux/action';
 
 const Lists = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const { apiData } = useSelector(state => ({
+    apiData: state.apiData.data,
+  }));
+  const getDatafromStore = () => {
+    dispatch(getDataFromApi());
+  };
+
+  useEffect(() => {
+    getDatafromStore();
+  }, []);
+
+  console.log(apiData);
 
   return (
     <Wrap>
@@ -15,9 +31,9 @@ const Lists = () => {
       </Nav>
       <ul>
         <DataList
-          title={'속리산 숲 체험 휴양 마을'}
-          address={'충청북도 보은군 속리산면 속리산로 596'}
-          tel={'043-540-3220'}
+          title={apiData.name}
+          address={apiData.address}
+          tel={apiData.ph}
         />
       </ul>
     </Wrap>
