@@ -4,9 +4,9 @@ const Select = ({ options, changeSearchTheme }) => {
   const changeSelectTheme = ({ target }) => changeSearchTheme(target.value);
   return (
     <select name="job" onChange={changeSelectTheme}>
-      {options.map(option => (
-        <option key={option} value={option}>
-          {option}
+      {Object.entries(options).map(([key, value]) => (
+        <option key={key} value={key}>
+          {value}
         </option>
       ))}
     </select>
@@ -14,7 +14,7 @@ const Select = ({ options, changeSearchTheme }) => {
 };
 
 Select.propTypes = {
-  options: PropTypes.array,
+  options: PropTypes.object,
   changeSearchTheme: PropTypes.func,
 };
 

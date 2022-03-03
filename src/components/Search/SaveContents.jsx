@@ -74,6 +74,7 @@ const SaveContents = ({ searchTheme, searchContent }) => {
   const [storageForests, setStorageForests] = useState(
     getItems('forests') ? getItems('forests') : [],
   );
+  console.log(storageForests);
   useEffect(() => {
     if (searchContent.length !== 0) {
       setStorageForests(
@@ -86,7 +87,7 @@ const SaveContents = ({ searchTheme, searchContent }) => {
       setStorageForests(getItems('forests'));
     }
   }, [searchContent]);
-  return storageForests ? (
+  return storageForests.length !== 0 ? (
     <>
       {storageForests.map(({ name, address, phone }, idx) => (
         <div key={idx}>
@@ -103,6 +104,6 @@ const SaveContents = ({ searchTheme, searchContent }) => {
 
 SaveContents.propTypes = {
   searchTheme: PropTypes.string,
-  searchContent: PropTypes.array,
+  searchContent: PropTypes.string,
 };
 export default SaveContents;

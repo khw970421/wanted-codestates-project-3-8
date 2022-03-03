@@ -4,9 +4,11 @@ import Input from './Input';
 import Select from './Select';
 import SaveContents from './SaveContents';
 
-const Search = ({ options = ['name', 'address', 'memo'] }) => {
-  const [searchTheme, setSearchTheme] = useState(options[0]);
-  const [searchContent, setSearchContent] = useState([]);
+const Search = ({
+  options = { name: '이름', address: '주소', memo: '메모' },
+}) => {
+  const [searchTheme, setSearchTheme] = useState('name');
+  const [searchContent, setSearchContent] = useState('');
   return (
     <>
       <Select
