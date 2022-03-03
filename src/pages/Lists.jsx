@@ -26,6 +26,11 @@ const Lists = () => {
         <h2>데이터 목록</h2>
       </Nav>
       <ul>
+        <DataList
+          title={'속리산 숲 체험 휴양 마을'}
+          address={'충청북도 보은군 속리산면 속리산로 596'}
+          tel={'043-540-3220'}
+        />
         {/* {res.data.body.map(({ NM, ADRES, TELNO }, idx) => (
           <DataList key={idx} title={NM} address={ADRES} tel={TELNO} />
         ))} */}
