@@ -1,4 +1,4 @@
-import { SAVE_PLACE, DELETE_PLACE } from '../action';
+import { SAVE_PLACE, DELETE_PLACE, UPDATE_PLACE } from '../action';
 import { initialState } from './initialState';
 
 const placeReducer = (state = initialState, action) => {
@@ -8,6 +8,12 @@ const placeReducer = (state = initialState, action) => {
       return {
         ...state,
         placeItems,
+      };
+    }
+    case UPDATE_PLACE: {
+      return {
+        ...state,
+        placeItems: action.payload._placeItems,
       };
     }
     case DELETE_PLACE: {
