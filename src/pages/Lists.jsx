@@ -27,7 +27,7 @@ const Lists = () => {
 const Nav = styled.nav`
   display: flex;
   padding-bottom: 10px;
-  margin: 10px 0;
+  margin: 10px 20px;
   font-size: 18px;
   font-weight: bold;
   box-sizing: border-box;

@@ -5,16 +5,25 @@ import styled from 'styled-components';
 const AddListBtn = () => {
   const navigate = useNavigate();
   return (
-    <Btn onClick={() => navigate('/list')}>
-      <i />
-    </Btn>
+    <Wrap>
+      <Btn onClick={() => navigate('/list')}>
+        <i />
+      </Btn>
+    </Wrap>
   );
 };
 
-const Btn = styled.button`
+const Wrap = styled.div`
   position: fixed;
+  bottom: 0;
+  width: 428px;
+  margin: auto;
+`;
+
+const Btn = styled.button`
+  position: absolute;
   bottom: 30px;
-  right: 40px;
+  right: 0px;
   width: 80px;
   height: 80px;
   border: 0;
@@ -23,6 +32,7 @@ const Btn = styled.button`
   padding: none;
   background-color: var(--main-color);
   transition: all 0.3s;
+  opacity: 0.7;
   cursor: pointer;
   i {
     ::after {
@@ -51,7 +61,7 @@ const Btn = styled.button`
     }
   }
   :hover {
-    opacity: 0.7;
+    opacity: 1;
   }
 `;
 

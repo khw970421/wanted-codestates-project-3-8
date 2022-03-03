@@ -10,12 +10,12 @@ const DataList = ({ title, address, tel, massage }) => {
       <p>{address}</p>
       <p>{tel}</p>
       {massage ? (
-        <p>
+        <Messsage>
           <i>
             <FaPen />
           </i>
           {massage}
-        </p>
+        </Messsage>
       ) : null}
     </Box>
   );
@@ -25,8 +25,7 @@ const Box = styled.li`
   max-width: 388px;
   border-radius: 6px;
   padding: 21px;
-  margin-bottom: 20px;
-  margin: auto;
+  margin: 20px auto;
   box-shadow: 3px 3px 8px 1px rgba(140, 141, 146, 0.25);
   box-sizing: border-box;
   color: #000;
@@ -41,25 +40,25 @@ const Box = styled.li`
       font-weight: bold;
       margin-bottom: 14px;
     }
-    :nth-child(2),
-    :nth-child(3) {
+    :nth-child(2) {
       color: var(--gray);
-      line-height: 1.2;
+      line-height: 1.5;
     }
-    :last-child {
-      display: inline-block;
-      max-width: 360px;
-      margin-top: 18px;
-      color: var(--main-color);
-      font-weight: bold;
-      font-size: 16px;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-      overflow: hidden;
-      i {
-        margin-right: 5px;
-      }
-    }
+  }
+`;
+
+const Messsage = styled.p`
+  display: inline-block;
+  max-width: 360px;
+  margin-top: 18px;
+  color: var(--main-color);
+  font-weight: bold;
+  font-size: 16px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  i {
+    margin-right: 5px;
   }
 `;
 
