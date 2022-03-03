@@ -5,6 +5,7 @@ import { IoIosArrowBack } from 'react-icons/io';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getDataFromApi } from '../redux/action';
+import { getData } from '../utils/axios';
 
 const Lists = () => {
   const navigate = useNavigate();
@@ -23,6 +24,10 @@ const Lists = () => {
 
   console.log(apiData);
 
+  useEffect(() => {
+    getData();
+  }, []);
+
   return (
     <Wrap>
       <Nav>
@@ -35,6 +40,9 @@ const Lists = () => {
           address={apiData.address}
           tel={apiData.ph}
         />
+        {/* {res.data.body.map(({ NM, ADRES, TELNO }, idx) => (
+          <DataList key={idx} title={NM} address={ADRES} tel={TELNO} />
+        ))} */}
       </ul>
     </Wrap>
   );

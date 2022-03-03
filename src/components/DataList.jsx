@@ -1,23 +1,38 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { FaPen } from 'react-icons/fa';
+import Modal from './Modal';
 
 const DataList = ({ title, address, tel, massage }) => {
+  const [showModal, setShowModal] = useState(false);
+
   return (
-    <Box>
-      <p>{title}</p>
-      <p>{address}</p>
-      <p>{tel}</p>
-      {massage ? (
-        <Messsage>
-          <i>
-            <FaPen />
-          </i>
-          {massage}
-        </Messsage>
+    <>
+      <Box onClick={() => setShowModal(true)}>
+        <p>{title}</p>
+        <p>{address}</p>
+        <p>{tel}</p>
+        {massage ? (
+          <Messsage>
+            <i>
+              <FaPen />
+            </i>
+            {massage}
+          </Messsage>
+        ) : null}
+      </Box>
+      {/* 모달 */}
+      {showModal ? (
+        <Modal
+          title={title}
+          address={address}
+          tel={tel}
+          massage={massage}
+          setShowModal={setShowModal}
+        />
       ) : null}
-    </Box>
+    </>
   );
 };
 
