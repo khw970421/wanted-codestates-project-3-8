@@ -2,6 +2,9 @@ import { getItems, setItems } from '../../utils/LocalStorage';
 
 export const SAVE_PLACE = 'SAVE_PLACE';
 export const UPDATE_PLACE = 'SAVE_PLACE';
+export const DELETE_PLACE = 'DELETE_PLACE';
+export const SHOW_MESSAGE = 'SHOW_MESSAGE';
+export const DELETE_MESSAGE = 'DELETE_MESSAGE';
 
 export const savePlaceItem = item => {
   const placeItems = getItems('placeItems') || [];
@@ -24,6 +27,19 @@ export const updatePlaceItem = (memo, index) => {
     type: UPDATE_PLACE,
     payload: {
       _placeItems,
+    },
+  };
+};
+
+export const deletePlaceItem = removedIdx => {
+  const placeItems = getItems('placeItems').filter(
+    (_, idx) => idx !== removedIdx,
+  );
+  setItems('placeItems', placeItems);
+  return {
+    type: DELETE_PLACE,
+    payload: {
+      placeItems,
     },
   };
 };
