@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { getItems } from '../../utils/LocalStorage';
+import styled from 'styled-components';
 // const Dummy_Data = [
 //   {
 //     name: '속리산 숲 체험',
@@ -78,29 +79,39 @@ const SaveContents = ({ searchTheme, searchContent }) => {
   useEffect(() => {
     if (searchContent.length !== 0) {
       setStorageForests(
-        getItems('forests').filter(
-          storageForest =>
-            storageForest[searchTheme]?.indexOf(searchContent) > -1,
-        ),
+        getItems('forests')
+          ? getItems('forests').filter(
+              storageForest =>
+                storageForest[searchTheme]?.indexOf(searchContent) > -1,
+            )
+          : [],
       );
     } else {
-      setStorageForests(getItems('forests'));
+      setStorageForests(getItems('forests') ? getItems('forests') : []);
     }
   }, [searchContent]);
   return storageForests.length !== 0 ? (
     <>
       {storageForests.map(({ name, address, phone }, idx) => (
-        <div key={idx}>
+        <ContentsContainer key={idx}>
           <div>{name}</div>
           <div>{address}</div>
           <div>{phone}</div>
-        </div>
+        </ContentsContainer>
       ))}
     </>
   ) : (
     <div>저장된 목록이 없습니다.</div>
   );
 };
+
+const ContentsContainer = styled.div`
+  margin: 10px;
+  background-color: #d3d3d3;
+  border-radius: 5px;
+  padding: 10px;
+  width: 200px;
+`;
 
 SaveContents.propTypes = {
   searchTheme: PropTypes.string,
