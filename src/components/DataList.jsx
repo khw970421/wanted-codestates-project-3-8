@@ -9,7 +9,7 @@ const DataList = ({ item, title, address, tel, massage }) => {
   const [showModal, setShowModal] = useState(false);
   const dispatch = useDispatch();
 
-  console.log(item);
+  // console.log(item);
 
   return (
     <>
@@ -82,6 +82,7 @@ const Messsage = styled.p`
 `;
 
 DataList.propTypes = {
+  // itemCount: PropTypes.number,
   item: PropTypes.object,
   title: PropTypes.string,
   address: PropTypes.string,

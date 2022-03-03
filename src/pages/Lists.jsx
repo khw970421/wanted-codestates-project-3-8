@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import styled from 'styled-components';
 import DataList from '../components/DataList';
 import { IoIosArrowBack } from 'react-icons/io';
@@ -13,10 +13,47 @@ const Lists = () => {
   const { apiData } = useSelector(state => ({
     apiData: state.apiData.data,
   }));
-
+  /* 아이템 개수와 현재 로딩 상태 */
+  const [state, setState] = useState({ itemCount: 0, isLoading: false });
+  /* fake 비동기 아이템 로드 */
+  const fetchItems = async () => {
+    setState(prev => ({ ...prev, isLoading: true }));
+    await dispatch(getDataFromApi());
+    setState(prev => ({
+      itemCount: prev.itemCount + 9,
+      isLoading: false,
+    }));
+  };
+  /* 초기 아이템 로딩 */
   useEffect(() => {
-    dispatch(getDataFromApi());
-  }, [apiData]);
+    fetchItems();
+  }, []);
+  /* 타겟 엘리먼트 */
+  const target = useRef(null);
+  /* 인터섹션 callback */
+  const onIntersect = async ([entry], observer) => {
+    if (entry.isIntersecting) {
+      observer.unobserve(entry.target);
+      await fetchItems();
+      observer.observe(entry.target);
+    }
+  };
+  /* 옵저버 등록 */
+  useEffect(() => {
+    const observer = new IntersectionObserver(onIntersect, { threshold: 0.5 });
+    observer.observe(target.current);
+    return () => observer.disconnect();
+  }, []);
+  const { itemCount, isLoading } = state;
+  // const { apiData } = useSelector(state => ({
+  //   apiData: state.apiData.data,
+  // }));
+
+  // useEffect(() => {
+  //   dispatch(getDataFromApi());
+  // }, [apiData]);
+
+  // console.log(apiData);
 
   return (
     <Wrap>
@@ -25,7 +62,7 @@ const Lists = () => {
         <h2>데이터 목록</h2>
       </Nav>
       <ul>
-        {apiData.map((item, idx) => {
+        {[...apiData, itemCount].map((item, idx) => {
           console.log(item);
           return (
             <DataList
@@ -38,6 +75,9 @@ const Lists = () => {
           );
         })}
       </ul>
+      <div ref={target} className="Loading">
+        {isLoading && 'Loading...'}
+      </div>
     </Wrap>
   );
 };
