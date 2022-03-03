@@ -5,28 +5,18 @@ import { IoIosArrowBack } from 'react-icons/io';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getDataFromApi } from '../redux/action';
-import { getData } from '../utils/axios';
 
 const Lists = () => {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const { apiData } = useSelector(state => ({
     apiData: state.apiData.data,
   }));
-  const getDatafromStore = () => {
+
+  useEffect(() => {
     dispatch(getDataFromApi());
-  };
-
-  useEffect(() => {
-    getDatafromStore();
-  }, []);
-
-  console.log(apiData);
-
-  useEffect(() => {
-    getData();
-  }, []);
+  }, [apiData]);
 
   return (
     <Wrap>
@@ -35,14 +25,18 @@ const Lists = () => {
         <h2>데이터 목록</h2>
       </Nav>
       <ul>
-        <DataList
-          title={apiData.name}
-          address={apiData.address}
-          tel={apiData.ph}
-        />
-        {/* {res.data.body.map(({ NM, ADRES, TELNO }, idx) => (
-          <DataList key={idx} title={NM} address={ADRES} tel={TELNO} />
-        ))} */}
+        {apiData.map((item, idx) => {
+          console.log(item);
+          return (
+            <DataList
+              item={item}
+              key={idx}
+              title={item.name}
+              address={item.address}
+              tel={item.phoneNumber}
+            />
+          );
+        })}
       </ul>
     </Wrap>
   );
