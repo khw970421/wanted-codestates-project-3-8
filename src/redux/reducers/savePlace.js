@@ -1,18 +1,5 @@
 import { initialState } from './initialState';
-import { getItems, setItems } from '../../utils/LocalStorage';
-
-export const SAVE_PLACE = 'SAVE_PLACE';
-
-export const savePlaceItem = item => {
-  const placeItems = getItems('placeItems') || [];
-  setItems('placeItems', [...placeItems, item]);
-  return {
-    type: SAVE_PLACE,
-    payload: {
-      item,
-    },
-  };
-};
+import { SAVE_PLACE } from '../action/index';
 
 const savePlaceReducer = (state = initialState, action) => {
   switch (action.type) {
