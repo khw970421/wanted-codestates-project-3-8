@@ -4,9 +4,12 @@ import styled from 'styled-components';
 
 const AddListBtn = () => {
   const navigate = useNavigate();
+  const onClickHandler = () => {
+    navigate('/list');
+  };
   return (
     <Wrap>
-      <Btn onClick={() => navigate('/list')}>
+      <Btn onClick={() => onClickHandler()}>
         <i />
       </Btn>
     </Wrap>

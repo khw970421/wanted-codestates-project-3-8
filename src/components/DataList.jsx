@@ -3,9 +3,13 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { FaPen } from 'react-icons/fa';
 import Modal from './Modal';
+import { useDispatch } from 'react-redux';
 
-const DataList = ({ title, address, tel, massage }) => {
+const DataList = ({ item, title, address, tel, massage }) => {
   const [showModal, setShowModal] = useState(false);
+  const dispatch = useDispatch();
+
+  console.log(item);
 
   return (
     <>
@@ -78,6 +82,7 @@ const Messsage = styled.p`
 `;
 
 DataList.propTypes = {
+  item: PropTypes.object,
   title: PropTypes.string,
   address: PropTypes.string,
   tel: PropTypes.string,
