@@ -1,12 +1,26 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import GlobalStyles from './styles/GlobalStyles';
+import { Provider } from 'react-redux';
+import rootReducer from './reducer';
+import { createStore, applyMiddleware } from 'redux';
+import { composeWithDevTools } from 'redux-devtools-extension';
 import App from './App';
+import reduxThunk from 'redux-thunk';
+import promiseMiddlerware from 'redux-promise';
+
+const createStoreWithMiddleware = applyMiddleware(
+  promiseMiddlerware,
+  reduxThunk,
+) (createStore)
+
+const store = createStoreWithMiddleware(
+  rootReducer,
+  composeWithDevTools(),
+);
 
 ReactDOM.render(
-  <React.StrictMode>
-    <GlobalStyles />
+  <Provider store={store}>
     <App />
-  </React.StrictMode>,
+  </Provider>,
   document.getElementById('root'),
 );
