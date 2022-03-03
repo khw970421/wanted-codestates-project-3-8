@@ -2,6 +2,8 @@ import { getItems, setItems } from '../../utils/LocalStorage';
 
 export const SAVE_PLACE = 'SAVE_PLACE';
 export const DELETE_PLACE = 'DELETE_PLACE';
+export const SHOW_MESSAGE = 'SHOW_MESSAGE';
+export const DELETE_MESSAGE = 'DELETE_MESSAGE';
 
 export const savePlaceItem = item => {
   const placeItems = getItems('placeItems') || [];
