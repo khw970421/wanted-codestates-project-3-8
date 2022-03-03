@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { getItems } from '../../utils/LocalStorage';
+import { getItems, isExist } from '../../utils/LocalStorage';
 import styled from 'styled-components';
 // const Dummy_Data = [
 //   {
@@ -70,26 +70,27 @@ localStorage.setItem('forests',JSON.stringify([
   },
 ]))
 */
-
 const SaveContents = ({ searchTheme, searchContent }) => {
+  // isExist 함수로 local에 저장된 것이 없다면 빈배열 리턴
   const [storageForests, setStorageForests] = useState(
-    getItems('forests') ? getItems('forests') : [],
+    isExist(getItems('forests')),
   );
-  console.log(storageForests);
+
+  // searchContent가 바뀌면 storageForests도 filter하여 재렌더링
   useEffect(() => {
     if (searchContent.length !== 0) {
       setStorageForests(
-        getItems('forests')
-          ? getItems('forests').filter(
-              storageForest =>
-                storageForest[searchTheme]?.indexOf(searchContent) > -1,
-            )
-          : [],
+        isExist(getItems('forests')).filter(
+          storageForest =>
+            storageForest[searchTheme]?.indexOf(searchContent) > -1,
+        ),
       );
     } else {
-      setStorageForests(getItems('forests') ? getItems('forests') : []);
+      setStorageForests(isExist(getItems('forests')));
     }
   }, [searchContent]);
+
+  // storageForests가 빈배열을 제외하고 전부 컨텐츠보이게 리렌더링
   return storageForests.length !== 0 ? (
     <>
       {storageForests.map(({ name, address, phone }, idx) => (

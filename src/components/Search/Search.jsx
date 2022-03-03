@@ -7,6 +7,7 @@ import SaveContents from './SaveContents';
 const Search = ({
   options = { name: '이름', address: '주소', memo: '메모' },
 }) => {
+  // select option인 searchTheme와 input 검색 결과값인 searchContent 상태 설정
   const [searchTheme, setSearchTheme] = useState('name');
   const [searchContent, setSearchContent] = useState('');
   return (
