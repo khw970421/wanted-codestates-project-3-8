@@ -7,9 +7,10 @@ const initialState = {
 export const getApiDataHandler = (state = initialState, action) => {
   switch (action.type) {
     case GET_DATA:
+      console.log(state, action.payload);
+
       return {
-        ...state,
-        data: action.payload,
+        data: [...state.data, ...action.payload],
       };
     default:
       return state;

@@ -4,47 +4,20 @@ import DataList from '../components/DataList';
 import { IoIosArrowBack } from 'react-icons/io';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { getDataFromApi } from '../redux/action';
+import { getDataFromApi, getPageData } from '../redux/action';
 
 const Lists = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
   const { apiData } = useSelector(state => ({
     apiData: state.apiData.data,
   }));
-  /* 아이템 개수와 현재 로딩 상태 */
-  const [state, setState] = useState({ itemCount: 0, isLoading: false });
-  /* fake 비동기 아이템 로드 */
-  const fetchItems = async () => {
-    setState(prev => ({ ...prev, isLoading: true }));
-    await dispatch(getDataFromApi());
-    setState(prev => ({
-      itemCount: prev.itemCount + 9,
-      isLoading: false,
-    }));
-  };
-  /* 초기 아이템 로딩 */
+  const { pageCount } = useSelector(state => state.pageReducer);
   useEffect(() => {
-    fetchItems();
+    dispatch(getDataFromApi(pageCount));
+    dispatch(getPageData(pageCount));
   }, []);
-  /* 타겟 엘리먼트 */
-  const target = useRef(null);
-  /* 인터섹션 callback */
-  const onIntersect = async ([entry], observer) => {
-    if (entry.isIntersecting) {
-      observer.unobserve(entry.target);
-      await fetchItems();
-      observer.observe(entry.target);
-    }
-  };
-  /* 옵저버 등록 */
-  useEffect(() => {
-    const observer = new IntersectionObserver(onIntersect, { threshold: 0.5 });
-    observer.observe(target.current);
-    return () => observer.disconnect();
-  }, []);
-  const { itemCount, isLoading } = state;
+  // const { itemCount, isLoading } = state;
   // const { apiData } = useSelector(state => ({
   //   apiData: state.apiData.data,
   // }));
@@ -55,8 +28,17 @@ const Lists = () => {
 
   // console.log(apiData);
 
+  const scroll = e => {
+    if (document.body.offsetHeight < e.target.scrollTop + 200) {
+      console.log('scroll로 인한 이벤트 시작');
+
+      //Todo : throttle
+      dispatch(getDataFromApi(pageCount));
+      dispatch(getPageData(pageCount));
+    }
+  };
   return (
-    <Wrap>
+    <Wrap onScroll={scroll}>
       <Nav>
         <IoIosArrowBack size={24} onClick={() => navigate('/')} />
         <h2>데이터 목록</h2>
@@ -75,9 +57,10 @@ const Lists = () => {
           );
         })}
       </ul>
-      <div ref={target} className="Loading">
+      {/* <div ref={target} className="Loading">
         {isLoading && 'Loading...'}
-      </div>
+      </div> */}
+      {/* <button onClick={click}>btn</button> */}
     </Wrap>
   );
 };
@@ -109,6 +92,8 @@ const Nav = styled.nav`
 const Wrap = styled.div`
   max-width: 428px;
   margin: 20px auto;
+  height: 700px;
+  overflow-y: scroll;
 `;
 
 export default Lists;

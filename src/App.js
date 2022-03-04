@@ -7,7 +7,6 @@ import NotificationMessage from './components/NotificationMessage';
 
 const App = () => {
   const state = useSelector(state => state.notificationReducer.notification);
-  console.log(state);
   return (
     <BrowserRouter>
       <Routes>
