@@ -1,6 +1,6 @@
 ## 🚀 배포 링크
 
-https://infallible-nightingale-33217f.netlify.app/
+https://wanted-preonboarding-team3-doublenc.netlify.app/
 
 ## 💿 실행 방법
 
