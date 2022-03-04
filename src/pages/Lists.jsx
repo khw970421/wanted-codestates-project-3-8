@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import DataList from '../components/DataList';
 import { IoIosArrowBack } from 'react-icons/io';
@@ -9,47 +9,40 @@ import { getDataFromApi, getPageData } from '../redux/action';
 const Lists = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
   const { apiData } = useSelector(state => ({
     apiData: state.apiData.data,
   }));
   const { pageCount } = useSelector(state => state.pageReducer);
+
   useEffect(() => {
     dispatch(getDataFromApi(pageCount));
     dispatch(getPageData(pageCount));
   }, []);
-  // const { apiData } = useSelector(state => ({
-  //   apiData: state.apiData.data,
-  // }));
 
-  // useEffect(() => {
-  //   dispatch(getDataFromApi());
-  // }, [apiData]);
-
-  // console.log(apiData);
+  const throttle = (callback, delay) => {
+    let timer = null;
+    return arg => {
+      if (timer === null) {
+        timer = setTimeout(() => {
+          callback(arg);
+          timer = null;
+        }, delay);
+      }
+    };
+  };
 
   const scroll = e => {
-    if (document.body.offsetHeight < e.target.scrollTop + 200) {
+    if (document.body.offsetHeight < e.target.scrollTop + 700) {
       console.log('scroll로 인한 이벤트 시작');
 
-      //Todo : throttle
       dispatch(getDataFromApi(pageCount));
       dispatch(getPageData(pageCount));
     }
   };
-  const debounce = (callback, delay) => {
-    let timer;
-    console.log(timer);
-    return arg => {
-      clearTimeout(timer);
-
-      timer = setTimeout(() => {
-        return callback(arg);
-      }, delay);
-    };
-  };
 
   return (
-    <Wrap onScroll={debounce(scroll, 400)}>
+    <Wrap onScroll={throttle(scroll, 400)}>
       <Nav>
         <IoIosArrowBack size={24} onClick={() => navigate('/')} />
         <h2>데이터 목록</h2>
@@ -68,9 +61,6 @@ const Lists = () => {
           );
         })}
       </ul>
-      {/* <div ref={target} className="Loading">
-        {isLoading && 'Loading...'}
-      </div> */}
       {/* <button onClick={click}>btn</button> */}
     </Wrap>
   );
