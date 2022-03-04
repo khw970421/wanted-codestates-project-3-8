@@ -1,11 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import { useSelector } from 'react-redux';
 
-const NotificationMessage = ({ state }) => {
+const NotificationMessage = () => {
+  const state = useSelector(state => state.notificationReducer.notification);
+  console.log(state);
   return (
     <div>
-      {state.length === 0 ? null : <MessageContainer>{state}</MessageContainer>}
+      {state.length === 0 ? null : (
+        <MessageContainer state={state}>{state}</MessageContainer>
+      )}
     </div>
   );
 };
@@ -14,7 +19,9 @@ const MessageContainer = styled.div`
   position: fixed;
   top: 10vh;
   left: 48vw;
-  background: #4eae3a;
+  z-index: 999;
+  background: ${props =>
+    props.state === '메모를 입력해주세요.' ? 'red' : '#4eae3a'};
   border-radius: 5px;
   color: white;
   width: 219px;
