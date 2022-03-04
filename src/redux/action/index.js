@@ -8,6 +8,7 @@ export const SHOW_MESSAGE = 'SHOW_MESSAGE';
 export const DELETE_MESSAGE = 'DELETE_MESSAGE';
 export const GET_DATA = 'GET_DATA';
 export const NOTIFY = 'NOTIFY';
+export const GET_PAGEDATA = 'GET_PAGEDATA';
 
 export const savePlaceItem = item => {
   const placeItems = getItems('placeItems') || [];
@@ -47,8 +48,9 @@ export const deletePlaceItem = removedIdx => {
   };
 };
 
-export const getDataFromApi = async () => {
-  const data = await getData();
+export const getDataFromApi = async pageCount => {
+  console.log(pageCount, '!!!');
+  const data = await getData(pageCount);
   // eslint-disable-next-line no-debugger
   // debugger;
   if (data === 'undefined' && data.result === 'error') {
@@ -87,5 +89,13 @@ export const showMessage = (message, time) => {
 export const deleteMessage = () => {
   return {
     type: DELETE_MESSAGE,
+  };
+};
+
+export const getPageData = pageCount => {
+  console.log(pageCount);
+  return {
+    type: GET_PAGEDATA,
+    payload: pageCount,
   };
 };

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import AddListBtn from '../components/AddListBtn';
 import DataList from '../components/DataList';
@@ -9,8 +9,6 @@ const Main = () => {
   const { placeData } = useSelector(state => ({
     placeData: state.placeData.placeItems,
   }));
-
-  console.log(placeData);
 
   return (
     <Wrap>
