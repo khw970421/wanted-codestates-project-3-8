@@ -3,18 +3,19 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { IoIosClose } from 'react-icons/io';
 import { useDispatch } from 'react-redux';
-import { notify } from '../redux/action';
-import { savePlaceItem } from '../redux/action';
+import { notify, deletePlaceItem, savePlaceItem, updatePlaceItem } from '../redux/action';
 import { useNavigate } from 'react-router-dom';
 
-const Modal = ({ title, address, tel, message, setShowModal, item }) => {
+const Modal = ({ title, address, tel, message, setShowModal, item, idx }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const memo = useRef(['memo']);
   const [comment, setComment] = useState('');
+  const [editMessage, setEditMessage] = useState(message);
 
   const onChangeMessage = e => {
     setComment({ ...item, message: e.target.value });
+    setEditMessage(e.target.value);
   };
 
   const onSaveDataHandler = (e) => {
@@ -58,7 +59,7 @@ const Modal = ({ title, address, tel, message, setShowModal, item }) => {
               cols="30"
               ref={memo}
               rows="10"
-              value={message}
+              value={editMessage}
               placeholder="내용을 입력해주세요"
               onChange={onChangeMessage}
             >{message}</textarea>
@@ -72,6 +73,7 @@ const Modal = ({ title, address, tel, message, setShowModal, item }) => {
                 onClick={() => {
                   setShowModal(false);
                   dispatch(notify('삭제 되었습니다.', 1500));
+                  dispatch(deletePlaceItem(idx))
                 }}
               >
                 삭제
@@ -84,6 +86,7 @@ const Modal = ({ title, address, tel, message, setShowModal, item }) => {
                   } else {
                     setShowModal(false);
                     dispatch(notify('수정 되었습니다.', 1500));
+                    dispatch(updatePlaceItem(editMessage, idx));
                   }
                 }}
               >
@@ -193,6 +196,7 @@ Modal.propTypes = {
   tel: PropTypes.string,
   message: PropTypes.string,
   setShowModal: PropTypes.func,
+  idx: PropTypes.number,
 };
 
 export default Modal;
