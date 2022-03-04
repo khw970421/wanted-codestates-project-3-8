@@ -93,7 +93,7 @@ export const deleteMessage = () => {
 };
 
 export const getPageData = pageCount => {
-  console.log(pageCount);
+  // console.log(pageCount);
   return {
     type: GET_PAGEDATA,
     payload: pageCount,
