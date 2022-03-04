@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { FaPen } from 'react-icons/fa';
 import Modal from './Modal';
 
-const DataList = ({ item, title, address, tel, massage }) => {
+const DataList = ({ item, title, address, tel, message }) => {
   const [showModal, setShowModal] = useState(false);
   // console.log(item);
 
@@ -14,12 +14,12 @@ const DataList = ({ item, title, address, tel, massage }) => {
         <p>{title}</p>
         <p>{address}</p>
         <p>{tel}</p>
-        {massage ? (
+        {message ? (
           <Messsage>
             <i>
               <FaPen />
             </i>
-            {massage}
+            {message}
           </Messsage>
         ) : null}
       </Box>
@@ -30,7 +30,7 @@ const DataList = ({ item, title, address, tel, massage }) => {
           title={title}
           address={address}
           tel={tel}
-          massage={massage}
+          message={message}
           setShowModal={setShowModal}
         />
       ) : null}
@@ -85,7 +85,7 @@ DataList.propTypes = {
   title: PropTypes.string,
   address: PropTypes.string,
   tel: PropTypes.string,
-  massage: PropTypes.string,
+  message: PropTypes.string,
 };
 
 export default DataList;

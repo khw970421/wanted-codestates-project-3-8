@@ -53,7 +53,7 @@ export const getDataFromApi = async pageCount => {
   const data = await getData(pageCount);
   // eslint-disable-next-line no-debugger
   // debugger;
-  if (data.result === 'error') {
+  if (data === 'undefined' && data.result === 'error') {
     alert('너무 많이 데이터를 요청했습니다.');
     return;
   }
@@ -71,18 +71,18 @@ export const getDataFromApi = async pageCount => {
 };
 
 export const notify =
-  (message, time = 500) =>
+  (message, time = 1500) =>
   dispatch => {
-    dispatch(showMessage(message, time));
+    dispatch(showMessage(message));
     setTimeout(() => {
       dispatch(deleteMessage());
     }, time);
   };
 
-export const showMessage = (message, time) => {
+export const showMessage = message => {
   return {
     type: SHOW_MESSAGE,
-    payload: { message, time },
+    payload: { message },
   };
 };
 
