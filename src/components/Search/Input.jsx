@@ -4,7 +4,6 @@ import styled from 'styled-components';
 
 const Input = ({ changeSearchContent }) => {
   const searchSaveTheme = ({ target }) => {
-    console.log('search Input  : ', target.value);
     changeSearchContent(target.value);
   };
   const debounce = (callback, delay) => {

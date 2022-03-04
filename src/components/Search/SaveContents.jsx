@@ -3,73 +3,7 @@ import { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { getItems, isExist } from '../../utils/LocalStorage';
 import styled from 'styled-components';
-// const Dummy_Data = [
-//   {
-//     name: '속리산 숲 체험',
-//     address: '충청북도...',
-//     phone: '010-xxxx-xxxx',
-//     memo: '추울 때 가야 더 좋은 곳',
-//   },
-//   {
-//     name: '지리산 숲 체험',
-//     address: '~북도',
-//     phone: '010-xxxx-xxxx',
-//     memo: '추울 때 가야 더 좋은 곳',
-//   },
-//   {
-//     name: '에베레스트 숲 체험',
-//     address: '~해외',
-//     phone: '010-xxxx-xxxx',
-//     memo: '추울 때 가야 더 좋은 곳',
-//   },
-//   {
-//     name: '한라산 숲 체험',
-//     address: '~제주도',
-//     phone: '010-xxxx-xxxx',
-//     memo: '추울 때 가야 더 좋은 곳',
-//   },
-//   {
-//     name: '산맥 숲 체험',
-//     address: '~산맥',
-//     phone: '010-xxxx-xxxx',
-//     memo: '추울 때 가야 더 좋은 곳',
-//   },
-// ];
 
-/*
-localStorage.setItem('forests',JSON.stringify([
-  {
-    name: '속리산 숲 체험',
-    address: '충청북도...',
-    phone: '010-xxxx-xxxx',
-    memo: '추울 때 가야 더 좋은 곳',
-  },
-  {
-    name: '지리산 숲 체험',
-    address: '~북도',
-    phone: '010-xxxx-xxxx',
-    memo: '추울 때 가야 더 좋은 곳',
-  },
-  {
-    name: '에베레스트 숲 체험',
-    address: '~해외',
-    phone: '010-xxxx-xxxx',
-    memo: '추울 때 가야 더 좋은 곳',
-  },
-  {
-    name: '한라산 숲 체험',
-    address: '~제주도',
-    phone: '010-xxxx-xxxx',
-    memo: '추울 때 가야 더 좋은 곳',
-  },
-  {
-    name: '산맥 숲 체험',
-    address: '~산맥',
-    phone: '010-xxxx-xxxx',
-    memo: '추울 때 가야 더 좋은 곳',
-  },
-]))
-*/
 const SaveContents = ({ searchTheme, searchContent }) => {
   // isExist 함수로 local에 저장된 것이 없다면 빈배열 리턴
   const [storageForests, setStorageForests] = useState(

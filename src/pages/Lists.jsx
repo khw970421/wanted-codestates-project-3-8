@@ -34,7 +34,6 @@ const Lists = () => {
 
   const scroll = e => {
     if (document.body.offsetHeight < e.target.scrollTop + 700) {
-      console.log('scroll로 인한 이벤트 시작');
       dispatch(getDataFromApi(pageCount));
       dispatch(getPageData(pageCount));
     }
@@ -48,7 +47,6 @@ const Lists = () => {
       </Nav>
       <ul>
         {apiData.map((item, idx) => {
-          // console.log(item);
           return (
             <DataList
               item={item}

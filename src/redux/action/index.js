@@ -25,7 +25,6 @@ export const updatePlaceItem = (memo, index) => {
   const placeItems = getItems('placeItems').map((placeItem, i) => {
     return i === index ? { ...placeItem, message: memo } : placeItem;
   });
-  console.log(placeItems);
   setItems('placeItems', placeItems);
   return {
     type: UPDATE_PLACE,
@@ -49,10 +48,8 @@ export const deletePlaceItem = removedIdx => {
 };
 
 export const getDataFromApi = async pageCount => {
-  console.log(pageCount, '!!!');
   const data = await getData(pageCount);
-  // eslint-disable-next-line no-debugger
-  // debugger;
+
   if (data.result === 'error') {
     alert('너무 많이 데이터를 요청했습니다.');
     return;
@@ -93,7 +90,6 @@ export const deleteMessage = () => {
 };
 
 export const getPageData = pageCount => {
-  // console.log(pageCount);
   return {
     type: GET_PAGEDATA,
     payload: pageCount,

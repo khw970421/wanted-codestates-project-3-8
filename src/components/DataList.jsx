@@ -6,7 +6,6 @@ import Modal from './Modal';
 
 const DataList = ({ item, title, address, tel, message, idx }) => {
   const [showModal, setShowModal] = useState(false);
-  // console.log(item);
 
   return (
     <>
@@ -81,7 +80,6 @@ const Messsage = styled.p`
 `;
 
 DataList.propTypes = {
-  // itemCount: PropTypes.number,
   item: PropTypes.object,
   title: PropTypes.string,
   address: PropTypes.string,
