@@ -3,13 +3,9 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { FaPen } from 'react-icons/fa';
 import Modal from './Modal';
-import { useDispatch } from 'react-redux';
 
 const DataList = ({ item, title, address, tel, massage }) => {
   const [showModal, setShowModal] = useState(false);
-  const dispatch = useDispatch();
-
-  console.log(item);
 
   return (
     <>
@@ -29,6 +25,7 @@ const DataList = ({ item, title, address, tel, massage }) => {
       {/* 모달 */}
       {showModal ? (
         <Modal
+          item={item}
           title={title}
           address={address}
           tel={tel}

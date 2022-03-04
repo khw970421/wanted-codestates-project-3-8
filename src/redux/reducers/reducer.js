@@ -5,7 +5,7 @@ import pageReducer from './pageReducer';
 import { getApiDataHandler } from './dataReducer';
 
 const rootReducer = combineReducers({
-  placeReducer,
+  placeData: placeReducer,
   notificationReducer,
   pageReducer,
   apiData: getApiDataHandler,

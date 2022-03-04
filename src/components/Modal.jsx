@@ -4,10 +4,29 @@ import styled from 'styled-components';
 import { IoIosClose } from 'react-icons/io';
 import { useDispatch } from 'react-redux';
 import { notify } from '../redux/action';
+import { savePlaceItem } from '../redux/action';
+import { useNavigate } from 'react-router-dom';
 
-const Modal = ({ title, address, tel, massage, setShowModal }) => {
-  console.log(massage);
+const Modal = ({
+  title,
+  address,
+  tel,
+  massage,
+  setShowModal,
+  item,
+}) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+
+  const onSaveDataHandler = (e, item) => {
+    e.preventDefault();
+    dispatch(savePlaceItem(item));
+    setShowModal(false);
+    dispatch(notify('저장 되었습니다.', 1500));
+    navigate('/');
+  }
+
   return (
     <>
       <Bg onClick={() => setShowModal(false)}></Bg>
@@ -57,10 +76,7 @@ const Modal = ({ title, address, tel, massage, setShowModal }) => {
           ) : (
             <button
               type="button"
-              onClick={() => {
-                setShowModal(false);
-                dispatch(notify('저장 되었습니다.', 1500));
-              }}
+              onClick={(e) => onSaveDataHandler(e, item)}
             >
               저장
             </button>
@@ -157,6 +173,7 @@ const DeleteBtn = styled.button`
 `;
 
 Modal.propTypes = {
+  item: PropTypes.object,
   title: PropTypes.string,
   address: PropTypes.string,
   tel: PropTypes.string,
