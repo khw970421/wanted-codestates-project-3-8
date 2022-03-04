@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import AddListBtn from '../components/AddListBtn';
 import DataList from '../components/DataList';
 import SearchBar from '../components/Search/SearchBar';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 const Main = () => {
   const { placeData } = useSelector(state => ({
