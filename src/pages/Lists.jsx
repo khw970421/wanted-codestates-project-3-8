@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import DataList from '../components/DataList';
 import { IoIosArrowBack } from 'react-icons/io';
@@ -9,32 +9,47 @@ import { getDataFromApi, getPageData } from '../redux/action';
 const Lists = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
   const { apiData } = useSelector(state => ({
     apiData: state.apiData.data,
   }));
   const { pageCount } = useSelector(state => state.pageReducer);
+
   useEffect(() => {
     dispatch(getDataFromApi(pageCount));
     dispatch(getPageData(pageCount));
   }, []);
 
+  const throttle = (callback, delay) => {
+    let timer = null;
+    return arg => {
+      if (timer === null) {
+        timer = setTimeout(() => {
+          callback(arg);
+          timer = null;
+        }, delay);
+      }
+    };
+  };
+
   const scroll = e => {
-    if (document.body.offsetHeight < e.target.scrollTop + 200) {
+    if (document.body.offsetHeight < e.target.scrollTop + 700) {
       console.log('scroll로 인한 이벤트 시작');
 
-      //Todo : throttle
       dispatch(getDataFromApi(pageCount));
       dispatch(getPageData(pageCount));
     }
   };
+
   return (
-    <Wrap onScroll={scroll}>
+    <Wrap onScroll={throttle(scroll, 400)}>
       <Nav>
         <IoIosArrowBack size={24} onClick={() => navigate('/')} />
         <h2>데이터 목록</h2>
       </Nav>
       <ul>
         {apiData.map((item, idx) => {
+          // console.log(item);
           return (
             <DataList
               item={item}
@@ -78,7 +93,7 @@ const Nav = styled.nav`
 const Wrap = styled.div`
   max-width: 428px;
   margin: 20px auto;
-  height: 700px;
+  max-height: 900px;
   overflow-y: scroll;
 `;
 
