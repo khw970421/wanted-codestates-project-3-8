@@ -13,7 +13,7 @@ const placeReducer = (state = initialState, action) => {
     case UPDATE_PLACE: {
       return {
         ...state,
-        placeItems: action.payload._placeItems,
+        placeItems: action.payload.placeItems,
       };
     }
     case DELETE_PLACE: {
