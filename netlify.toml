@@ -1,5 +1,9 @@
 [[redirects]]
-  from = "/proxy/*"
+  from = “/api/*”
   to = "http://apis.data.go.kr/6430000/cbRecreationalForestInfoService"
   status = 200
-  force = true
+
+  [[redirects]]
+  from = “/*”
+  to = “/index.html”
+  status = 200
