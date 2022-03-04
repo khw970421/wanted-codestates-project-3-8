@@ -3,21 +3,19 @@ import styled from 'styled-components';
 import AddListBtn from '../components/AddListBtn';
 import DataList from '../components/DataList';
 import SearchBar from '../components/Search/SearchBar';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 const Main = () => {
   const { placeData } = useSelector(state => ({
     placeData: state.placeData.placeItems,
   }));
 
-  console.log(placeData);
-
   return (
     <Wrap>
       <SearchBar />
       <h2>저장된 목록</h2>
       <ul>
-        {placeData.map((item, idx) => {
+        {placeData?.map((item, idx) => {
           return (
             <DataList
               item={item}
@@ -25,6 +23,7 @@ const Main = () => {
               title={item.name}
               address={item.address}
               tel={item.phoneNumber}
+              message={item.message}
             />
           );
         })}

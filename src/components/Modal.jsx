@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { IoIosClose } from 'react-icons/io';
@@ -7,17 +7,22 @@ import { notify } from '../redux/action';
 import { savePlaceItem } from '../redux/action';
 import { useNavigate } from 'react-router-dom';
 
-const Modal = ({ title, address, tel, massage, setShowModal, item }) => {
+const Modal = ({ title, address, tel, message, setShowModal, item }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const memo = useRef(['memo']);
+  const [comment, setComment] = useState('');
 
-  const onSaveDataHandler = (e, item) => {
+  const onChangeMessage = e => {
+    setComment({ ...item, message: e.target.value });
+  };
+
+  const onSaveDataHandler = (e) => {
     e.preventDefault();
     if (memo.current.value === '') {
       dispatch(notify('메모를 입력해주세요.', 1500));
     } else {
-      dispatch(savePlaceItem(item));
+      dispatch(savePlaceItem(comment));
       setShowModal(false);
       dispatch(notify('저장 되었습니다.', 1500));
       navigate('/');
@@ -53,12 +58,14 @@ const Modal = ({ title, address, tel, massage, setShowModal, item }) => {
               cols="30"
               ref={memo}
               rows="10"
+              value={message}
               placeholder="내용을 입력해주세요"
-            ></textarea>
+              onChange={onChangeMessage}
+            >{message}</textarea>
           </li>
         </ul>
         <Btn>
-          {massage ? (
+          {message ? (
             <>
               <DeleteBtn
                 type="button"
@@ -184,7 +191,7 @@ Modal.propTypes = {
   title: PropTypes.string,
   address: PropTypes.string,
   tel: PropTypes.string,
-  massage: PropTypes.string,
+  message: PropTypes.string,
   setShowModal: PropTypes.func,
 };
 
