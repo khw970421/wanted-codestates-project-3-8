@@ -2,7 +2,7 @@ import { getItems, setItems } from '../../utils/LocalStorage';
 import { getData } from '../../utils/axios';
 
 export const SAVE_PLACE = 'SAVE_PLACE';
-export const UPDATE_PLACE = 'SAVE_PLACE';
+export const UPDATE_PLACE = 'UPDATE_PLACE';
 export const DELETE_PLACE = 'DELETE_PLACE';
 export const SHOW_MESSAGE = 'SHOW_MESSAGE';
 export const DELETE_MESSAGE = 'DELETE_MESSAGE';
@@ -22,15 +22,15 @@ export const savePlaceItem = item => {
 };
 
 export const updatePlaceItem = (memo, index) => {
-  const placeItems = getItems('placeItems');
-  const _placeItems = placeItems.map((placeItem, i) => {
+  const placeItems = getItems('placeItems').map((placeItem, i) => {
     return i === index ? { ...placeItem, message: memo } : placeItem;
   });
-  setItems('placeItems', [..._placeItems]);
+  console.log(placeItems);
+  setItems('placeItems', placeItems);
   return {
     type: UPDATE_PLACE,
     payload: {
-      _placeItems,
+      placeItems,
     },
   };
 };
@@ -53,7 +53,7 @@ export const getDataFromApi = async pageCount => {
   const data = await getData(pageCount);
   // eslint-disable-next-line no-debugger
   // debugger;
-  if (data === 'undefined' && data.result === 'error') {
+  if (data.result === 'error') {
     alert('너무 많이 데이터를 요청했습니다.');
     return;
   }
@@ -71,18 +71,18 @@ export const getDataFromApi = async pageCount => {
 };
 
 export const notify =
-  (message, time = 1500) =>
+  (message, time = 500) =>
   dispatch => {
-    dispatch(showMessage(message));
+    dispatch(showMessage(message, time));
     setTimeout(() => {
       dispatch(deleteMessage());
     }, time);
   };
 
-export const showMessage = message => {
+export const showMessage = (message, time) => {
   return {
     type: SHOW_MESSAGE,
-    payload: { message },
+    payload: { message, time },
   };
 };
 

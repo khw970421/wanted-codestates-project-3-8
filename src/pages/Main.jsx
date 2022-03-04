@@ -20,6 +20,7 @@ const Main = () => {
             <DataList
               item={item}
               key={idx}
+              idx={idx}
               title={item.name}
               address={item.address}
               tel={item.phoneNumber}

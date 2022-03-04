@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { FaPen } from 'react-icons/fa';
 import Modal from './Modal';
 
-const DataList = ({ item, title, address, tel, message }) => {
+const DataList = ({ item, title, address, tel, message, idx }) => {
   const [showModal, setShowModal] = useState(false);
 
   return (
@@ -31,6 +31,7 @@ const DataList = ({ item, title, address, tel, message }) => {
           tel={tel}
           message={message}
           setShowModal={setShowModal}
+          idx={idx}
         />
       ) : null}
     </>
@@ -84,6 +85,7 @@ DataList.propTypes = {
   address: PropTypes.string,
   tel: PropTypes.string,
   message: PropTypes.string,
+  idx: PropTypes.number,
 };
 
 export default DataList;
