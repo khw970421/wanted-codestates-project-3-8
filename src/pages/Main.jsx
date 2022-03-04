@@ -4,11 +4,16 @@ import AddListBtn from '../components/AddListBtn';
 import DataList from '../components/DataList';
 import SearchBar from '../components/Search/SearchBar';
 import { useSelector } from 'react-redux';
+import { getItems, isExist } from '../utils/LocalStorage';
 
 const Main = () => {
-  const { placeData } = useSelector(state => ({
-    placeData: state.placeData.placeItems,
-  }));
+  const localStorage = getItems('placeItems');
+
+  const placeData = localStorage
+    ? localStorage
+    : useSelector(state => ({
+        placeData: state.placeData.placeItems,
+      })).placeItems;
 
   return (
     <Wrap>
