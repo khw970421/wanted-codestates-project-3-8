@@ -49,7 +49,13 @@ export const deletePlaceItem = removedIdx => {
 
 export const getDataFromApi = async () => {
   const data = await getData();
-  const filterd = data.body.map(item => {
+  // eslint-disable-next-line no-debugger
+  // debugger;
+  if (data.result === 'error') {
+    alert('너무 많이 데이터를 요청했습니다.');
+    return;
+  }
+  const filtered = data.body.map(item => {
     return {
       name: item.NM,
       address: item.ADRES,
@@ -58,9 +64,10 @@ export const getDataFromApi = async () => {
   });
   return {
     type: GET_DATA,
-    payload: filterd,
+    payload: filtered,
   };
 };
+
 export const notify =
   (message, time = 500) =>
   dispatch => {
