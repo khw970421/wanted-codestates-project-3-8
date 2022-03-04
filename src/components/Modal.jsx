@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { IoIosClose } from 'react-icons/io';
@@ -7,25 +7,25 @@ import { notify } from '../redux/action';
 import { savePlaceItem } from '../redux/action';
 import { useNavigate } from 'react-router-dom';
 
-const Modal = ({
-  title,
-  address,
-  tel,
-  massage,
-  setShowModal,
-  item,
-}) => {
+const Modal = ({ title, address, tel, message, setShowModal, item }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  const [comment, setComment] = useState('');
 
-  const onSaveDataHandler = (e, item) => {
+  const onChangeMessage = e => {
+    setComment({ ...item, message: e.target.value });
+  };
+  console.log(comment);
+
+  const onSaveDataHandler = (e) => {
     e.preventDefault();
-    dispatch(savePlaceItem(item));
+    dispatch(savePlaceItem(comment));
     setShowModal(false);
     dispatch(notify('저장 되었습니다.', 1500));
     navigate('/');
-  }
+  };
+
 
   return (
     <>
@@ -55,12 +55,14 @@ const Modal = ({
               id=""
               cols="30"
               rows="10"
+              value={message}
               placeholder="내용을 입력해주세요"
-            ></textarea>
+              onChange={onChangeMessage}
+            >{message}</textarea>
           </li>
         </ul>
         <Btn>
-          {massage ? (
+          {message ? (
             <>
               <DeleteBtn
                 type="button"
@@ -74,10 +76,7 @@ const Modal = ({
               <button type="button">수정</button>
             </>
           ) : (
-            <button
-              type="button"
-              onClick={(e) => onSaveDataHandler(e, item)}
-            >
+            <button type="button" onClick={e => onSaveDataHandler(e)}>
               저장
             </button>
           )}
@@ -177,7 +176,7 @@ Modal.propTypes = {
   title: PropTypes.string,
   address: PropTypes.string,
   tel: PropTypes.string,
-  massage: PropTypes.string,
+  message: PropTypes.string,
   setShowModal: PropTypes.func,
 };
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import AddListBtn from '../components/AddListBtn';
 import DataList from '../components/DataList';
@@ -17,7 +17,7 @@ const Main = () => {
       <SearchBar />
       <h2>저장된 목록</h2>
       <ul>
-        {placeData.map((item, idx) => {
+        {placeData?.map((item, idx) => {
           return (
             <DataList
               item={item}
@@ -25,6 +25,7 @@ const Main = () => {
               title={item.name}
               address={item.address}
               tel={item.phoneNumber}
+              message={item.message}
             />
           );
         })}

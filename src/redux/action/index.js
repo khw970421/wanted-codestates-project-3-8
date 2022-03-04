@@ -50,8 +50,8 @@ export const deletePlaceItem = removedIdx => {
 export const getDataFromApi = async () => {
   const data = await getData();
   // eslint-disable-next-line no-debugger
-  debugger;
-  if (data.result === 'error') {
+  // debugger;
+  if (data === 'undefined' && data.result === 'error') {
     alert('너무 많이 데이터를 요청했습니다.');
     return;
   }
