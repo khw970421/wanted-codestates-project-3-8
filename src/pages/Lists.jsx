@@ -21,6 +21,8 @@ const Lists = () => {
   const scroll = e => {
     if (document.body.offsetHeight < e.target.scrollTop + 200) {
       console.log('scroll로 인한 이벤트 시작');
+
+      //Todo : throttle
       dispatch(getDataFromApi(pageCount));
       dispatch(getPageData(pageCount));
     }

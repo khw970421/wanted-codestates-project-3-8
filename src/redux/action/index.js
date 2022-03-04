@@ -52,7 +52,7 @@ export const getDataFromApi = async pageCount => {
   console.log(pageCount, '!!!');
   const data = await getData(pageCount);
   // eslint-disable-next-line no-debugger
-  debugger;
+  // debugger;
   if (data.result === 'error') {
     alert('너무 많이 데이터를 요청했습니다.');
     return;
