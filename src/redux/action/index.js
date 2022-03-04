@@ -69,18 +69,18 @@ export const getDataFromApi = async () => {
 };
 
 export const notify =
-  (message, time = 500) =>
+  (message, time = 1500) =>
   dispatch => {
-    dispatch(showMessage(message, time));
+    dispatch(showMessage(message));
     setTimeout(() => {
       dispatch(deleteMessage());
     }, time);
   };
 
-export const showMessage = (message, time) => {
+export const showMessage = message => {
   return {
     type: SHOW_MESSAGE,
-    payload: { message, time },
+    payload: { message },
   };
 };
 
