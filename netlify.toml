@@ -3,7 +3,7 @@
   to = "http://apis.data.go.kr/6430000/cbRecreationalForestInfoService/:splat"
   status = 200
 
-  [[redirects]]
-  from = “/*”
+[[redirects]]
+  from = “/”
   to = “/index.html”
   status = 200
