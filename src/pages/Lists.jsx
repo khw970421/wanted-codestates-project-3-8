@@ -17,7 +17,6 @@ const Lists = () => {
     dispatch(getDataFromApi(pageCount));
     dispatch(getPageData(pageCount));
   }, []);
-  // const { itemCount, isLoading } = state;
   // const { apiData } = useSelector(state => ({
   //   apiData: state.apiData.data,
   // }));
@@ -37,15 +36,27 @@ const Lists = () => {
       dispatch(getPageData(pageCount));
     }
   };
+  const debounce = (callback, delay) => {
+    let timer;
+    console.log(timer);
+    return arg => {
+      clearTimeout(timer);
+
+      timer = setTimeout(() => {
+        return callback(arg);
+      }, delay);
+    };
+  };
+
   return (
-    <Wrap onScroll={scroll}>
+    <Wrap onScroll={debounce(scroll, 400)}>
       <Nav>
         <IoIosArrowBack size={24} onClick={() => navigate('/')} />
         <h2>데이터 목록</h2>
       </Nav>
       <ul>
-        {[...apiData, itemCount].map((item, idx) => {
-          console.log(item);
+        {apiData.map((item, idx) => {
+          // console.log(item);
           return (
             <DataList
               item={item}
@@ -92,7 +103,7 @@ const Nav = styled.nav`
 const Wrap = styled.div`
   max-width: 428px;
   margin: 20px auto;
-  height: 700px;
+  max-height: 900px;
   overflow-y: scroll;
 `;
 
