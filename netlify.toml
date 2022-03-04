@@ -1,6 +1,6 @@
 [[redirects]]
   from = “/api/*”
-  to = "http://apis.data.go.kr/6430000/cbRecreationalForestInfoService"
+  to = "http://apis.data.go.kr/6430000/cbRecreationalForestInfoService/:splat"
   status = 200
 
   [[redirects]]
