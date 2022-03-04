@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import DataList from '../components/DataList';
 import { IoIosArrowBack } from 'react-icons/io';
@@ -35,7 +35,6 @@ const Lists = () => {
   const scroll = e => {
     if (document.body.offsetHeight < e.target.scrollTop + 700) {
       console.log('scroll로 인한 이벤트 시작');
-
       dispatch(getDataFromApi(pageCount));
       dispatch(getPageData(pageCount));
     }
@@ -61,7 +60,6 @@ const Lists = () => {
           );
         })}
       </ul>
-      {/* <button onClick={click}>btn</button> */}
     </Wrap>
   );
 };
