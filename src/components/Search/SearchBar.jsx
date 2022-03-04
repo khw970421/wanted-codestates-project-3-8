@@ -1,16 +1,15 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import Input from './Input';
 import Select from './Select';
 import styled from 'styled-components';
 
 const SearchBar = ({
-  options = { name: '이름', address: '주소', memo: '메모' },
+  setSearchTheme,
+  setSearchContent,
+  options = { name: '이름', address: '주소', message: '메모' },
 }) => {
   // select option인 searchTheme와 input 검색 결과값인 searchContent 상태 설정
-  const [searchTheme, setSearchTheme] = useState('name');
-  const [searchContent, setSearchContent] = useState('');
-  console.log(searchTheme, searchContent);
   return (
     <Box>
       <Select
@@ -29,6 +28,8 @@ const Box = styled.nav`
 
 SearchBar.propTypes = {
   options: PropTypes.array,
+  setSearchTheme: PropTypes.func,
+  setSearchContent: PropTypes.func,
 };
 
 export default SearchBar;
