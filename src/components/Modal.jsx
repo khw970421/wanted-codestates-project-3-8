@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { IoIosClose } from 'react-icons/io';
@@ -8,6 +8,8 @@ import { notify } from '../redux/action';
 const Modal = ({ title, address, tel, massage, setShowModal }) => {
   console.log(massage);
   const dispatch = useDispatch();
+  const memo = useRef(['memo']);
+  console.log(memo.current.value);
   return (
     <>
       <Bg onClick={() => setShowModal(false)}></Bg>
@@ -35,6 +37,7 @@ const Modal = ({ title, address, tel, massage, setShowModal }) => {
               name="massage"
               id=""
               cols="30"
+              ref={memo}
               rows="10"
               placeholder="내용을 입력해주세요"
             ></textarea>
@@ -52,14 +55,30 @@ const Modal = ({ title, address, tel, massage, setShowModal }) => {
               >
                 삭제
               </DeleteBtn>
-              <button type="button">수정</button>
+              <button
+                type="button"
+                onClick={() => {
+                  if (memo.current.value === '') {
+                    dispatch(notify('메모를 입력해주세요.', 1500));
+                  } else {
+                    setShowModal(false);
+                    dispatch(notify('수정 되었습니다.', 1500));
+                  }
+                }}
+              >
+                수정
+              </button>
             </>
           ) : (
             <button
               type="button"
               onClick={() => {
-                setShowModal(false);
-                dispatch(notify('저장 되었습니다.', 1500));
+                if (memo.current.value === '') {
+                  dispatch(notify('메모를 입력해주세요.', 1500));
+                } else {
+                  setShowModal(false);
+                  dispatch(notify('저장 되었습니다.', 1500));
+                }
               }}
             >
               저장
