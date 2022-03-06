@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import AddListBtn from '../components/AddListBtn';
 import DataList from '../components/DataList';
@@ -6,14 +6,18 @@ import SearchBar from '../components/Search/SearchBar';
 import { useSelector } from 'react-redux';
 
 const Main = () => {
-
-  const { placeData } = useSelector(state => ({
+  const [searchTheme, setSearchTheme] = useState('name');
+  const [searchContent, setSearchContent] = useState('');
+  const placeData = useSelector(state => ({
     placeData: state.placeData.placeItems,
-  }));
+  })).placeData.filter(item => item[searchTheme].includes(searchContent));
 
   return (
     <Wrap>
-      <SearchBar />
+      <SearchBar
+        setSearchTheme={setSearchTheme}
+        setSearchContent={setSearchContent}
+      />
       <h2>저장된 목록</h2>
       <ul>
         {placeData?.map((item, idx) => {

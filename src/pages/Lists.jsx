@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import DataList from '../components/DataList';
 import { IoIosArrowBack } from 'react-icons/io';
@@ -24,7 +24,7 @@ const Lists = () => {
     dispatch(getPageData(page.current));
   }, []);
 
-  const [_, setRef] = useIntersect(async(entry, observer) => {
+  const [_, setRef] = useIntersect(async (entry, observer) => {
     observer.unobserve(entry.target);
     await dispatch(getPageData(page.current++));
     await dispatch(getDataFromApi(page.current, true));
@@ -50,7 +50,7 @@ const Lists = () => {
           );
         })}
       </ul>
-      {isLoaded && <div ref={setRef}>loading</div>}
+      {isLoaded && <p ref={setRef}>Loading...</p>}
     </Wrap>
   );
 };
@@ -83,6 +83,10 @@ const Wrap = styled.div`
   max-width: 428px;
   margin: 20px auto;
   height: 700px;
+  p {
+    width: 100%;
+    text-align: center;
+  }
 `;
 
 export default Lists;

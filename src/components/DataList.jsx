@@ -80,7 +80,6 @@ const Messsage = styled.p`
 `;
 
 DataList.propTypes = {
-  // itemCount: PropTypes.number,
   item: PropTypes.object,
   title: PropTypes.string,
   address: PropTypes.string,
