@@ -6,7 +6,6 @@ import Modal from './Modal';
 
 const DataList = ({ item, title, address, tel, message, idx }) => {
   const [showModal, setShowModal] = useState(false);
-  // console.log(item);
 
   return (
     <>

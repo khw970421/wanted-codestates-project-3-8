@@ -5,7 +5,6 @@ import { useSelector } from 'react-redux';
 
 const NotificationMessage = () => {
   const state = useSelector(state => state.notificationReducer.notification);
-  console.log(state);
   return (
     <div>
       {state.length === 0 ? null : (
